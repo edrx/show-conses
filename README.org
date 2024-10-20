@@ -20,6 +20,8 @@
 #+OPTIONS: toc:nil num:nil
 #+OPTIONS: org-html-postamble:nil
 
+See [[http://anggtwu.net/show-conses.html]].
+
 #+begin_comment
  (eepitch-shell)
  (eepitch-kill)
