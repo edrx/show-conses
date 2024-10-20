@@ -8,7 +8,7 @@
 ;; Modified: 2024oct20
 ;; Version: 0.0.20241020
 ;; Homepage: http://anggtwu.net/show-conses.html
-;; Package-Requires: ((eev))
+;; Package-Requires: ((eev "20241014"))
 ;;
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
@@ -83,6 +83,7 @@
 ;; Skel: (find-intro-links "show-conses")
 ;; Test: (find-show-conses-intro)
 
+;;;###autoload
 (defun find-show-conses-intro (&rest pos-spec-list) (interactive)
   (let ((ee-buffer-name "*(find-show-conses-intro)*"))
     (apply 'find-eintro "\
@@ -1009,4 +1010,5 @@ in `show-conses-markers' that point to the same buffer."
 
 ;; Local Variables:
 ;; coding:  utf-8-unix
+;; no-byte-compile:   t
 ;; End:

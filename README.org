@@ -15,7 +15,7 @@
 # Skel: (find-mygitrepo-links "show-conses")
 #       (find-efunction 'find-mygitrepo-links)
 #  See: (find-angg "pict2e-lua/README.org")
-#
+# 
 # (find-orgnode "Table of Contents")
 #+OPTIONS: toc:nil num:nil
 #+OPTIONS: org-html-postamble:nil
