@@ -151,7 +151,7 @@ names to markers. Try:
   (find-show-conses-lisp-3a '(1 (2 \"3\") . 4) :end)
   (show-conses-set-overlay-1 \"car\")
   (show-conses-set-overlay-1 \"cr\")
-  (show-conses-delete-overlay \"cr\")
+  (show-conses-delete-overlay)
   (find-2a nil '(find-ehashtable show-conses-markers))
 
 
