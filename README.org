@@ -1,0 +1,47 @@
+# This file:
+#   https://github.com/edrx/show-conses
+#        http://anggtwu.net/show-conses/README.org.html
+#        http://anggtwu.net/show-conses/README.org
+#               (find-angg "show-conses/README.org")
+#               (find-angg "show-conses/")
+# Author: Eduardo Ochs <eduardoochs@gmail.com>
+# 
+# Some eev-isms:
+# (defun c  () (interactive) (eek "C-c C-e h h"))
+# (defun o  () (interactive) (find-angg "show-conses/README.org"))
+# (defun v  () (interactive) (brg     "~/show-conses/README.html"))
+# (defun cv () (interactive) (c) (v))
+# 
+# Skel: (find-mygitrepo-links "show-conses")
+#       (find-efunction 'find-mygitrepo-links)
+#  See: (find-angg "pict2e-lua/README.org")
+#
+# (find-orgnode "Table of Contents")
+#+OPTIONS: toc:nil num:nil
+#+OPTIONS: org-html-postamble:nil
+
+#+begin_comment
+ (eepitch-shell)
+ (eepitch-kill)
+ (eepitch-shell)
+cd ~/show-conses/
+laf
+rm -v *~
+rm -v *.html
+
+# (find-fline   "~/show-conses/")
+# (magit-status "~/show-conses/")
+# (find-gitk    "~/show-conses/")
+#
+#   (s)tage all changes
+#   (c)ommit -> (c)reate
+#   (P)ush -> (p)ushremote
+#   https://github.com/edrx/show-conses
+#
+#+end_comment
+
+# Local Variables:
+# coding:               utf-8-unix
+# modes:                (org-mode fundamental-mode)
+# org-html-postamble:   nil
+# End:
