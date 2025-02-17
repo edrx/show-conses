@@ -131,8 +131,7 @@ and by \"Sdraw\" from Racket. Compare:
 If you are reading this in Emacs then you have already loaded
 \"show-conses.el\", that is able to display such diagrams. Try:
 
-  (find-show-conses-2a '(1 (2 \"3\") . 4)))
-  (find-2a nil '(find-show-conses-lisp '(1 (2 \"3\") . 4)))
+  (find-show-conses-2a '(1 (2 \"3\") . 4))
 
 You will get a two-window setting like this,
 
