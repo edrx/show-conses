@@ -8,7 +8,7 @@
 ;; Modified: 2025feb16
 ;; Version: 0.0.20250216
 ;; Homepage: http://anggtwu.net/show-conses.html
-;; Package-Requires: (eev)
+;; Package-Requires: ((eev "20241223"))
 ;;
 ;; This program is free software: you can redistribute it and/or modify
 ;; it under the terms of the GNU General Public License as published by
