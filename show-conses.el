@@ -1134,14 +1134,29 @@ This function doesn't run the `sc-:setmarker's in the `sc-:m1's."
 ;; (sc-:classchildren 'oclosure)
 ;; (sc-:toplain (sc-:classtree 'function))
 ;; (find-classtree 'function)
+;; (find-classtree 'cl-structure-object)
 ;; (find-classtree 't)
-;; (find-insertrects-2a (sc-:td "abc" (sc-:rtree "d" "e" "f") "ghi"))
+;; (find-insertrects-2a (sc-:rtree (sc-:td 'abc) (sc-:rtree "d" "e" "f") "ghi"))
 ;;
 (defun sc-:td (tag)
   `(:rect ((:td1 ,tag))))
 
+;; Test: (sc-cl--class-children (cl-find-class 'cl-structure-object))
+;;          (cl--class-children (cl-find-class 'cl-structure-object))
+;;  See: https://lists.gnu.org/archive/html/help-gnu-emacs/2025-02/msg00309.html
+;;       (find-efunction 'cl--class-children)
+(defun sc-cl--class-children (class)
+  "This is a copy of `cl--class-children' (that only exists on recent Emacses)."
+  (let ((children '()))
+    (mapatoms
+     (lambda (sym)
+       (let ((sym-class (cl--find-class sym)))
+         (and sym-class (memq class (cl--class-parents sym-class))
+          (push sym children)))))
+    children))
+
 (defun sc-:classchildren (symbol)
-  (ee-sort-symbols (cl--class-children (cl-find-class symbol))))
+  (ee-sort-symbols (sc-cl--class-children (cl-find-class symbol))))
 
 (defun sc-:classtree (symbol)
   (let* ((children1 (sc-:classchildren symbol))
