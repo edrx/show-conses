@@ -1,13 +1,50 @@
-;; This file:
-;;   http://anggtwu.net/show-conses/show-conses-2.el.html
-;;   http://anggtwu.net/show-conses/show-conses-2.el
-;;          (find-angg "show-conses/show-conses-2.el")
+;;; show-conses.el --- Shows cons-cell diagrams -*- lexical-binding: nil; -*-
+;;
+;; Copyright (C) 2024 Eduardo Ochs
+;;
 ;; Author: Eduardo Ochs <eduardoochs@gmail.com>
+;; Maintainer: Eduardo Ochs <eduardoochs@gmail.com>
+;; Created: 2024oct20
+;; Modified: 2025feb16
+;; Version: 0.0.20250216
+;; Homepage: http://anggtwu.net/show-conses.html
+;; Package-Requires: (eev)
 ;;
-;; (defun sc1 () (interactive) (find-angg "show-conses/show-conses.el"))
-;; (defun sc2 () (interactive) (find-angg "show-conses/show-conses-2.el"))
-;; (load (buffer-file-name))
+;; This program is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation, either version 3 of the License, or
+;; (at your option) any later version.
 ;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+;;
+;;; Commentary:
+;;
+;; See:
+;;   http://anggtwu.net/show-conses.html
+;;   http://anggtwu.net/show-conses/show-conses.el.html
+;;   http://anggtwu.net/show-conses/show-conses.el
+;;                (find-showconses "show-conses.el")
+;; Git repository:
+;;   https://github.com/edrx/show-conses
+;;
+;; EVERYTHING HERE IS VERY NEW & PRELIMINARY!
+;;
+;; (defun e   () (interactive) (find-showconses "show-conses.el"))
+;; (defun sc0 () (interactive) (find-angg "show-conses/show-conses-0.el"))
+;; (defun sc  () (interactive) (find-angg "show-conses/show-conses.el"))
+;; (Re)load with:
+;;
+;;   (load (buffer-file-name))
+
+;; Index:
+;;
+;; «.intro»			(to "intro")
 ;; «.sc-:do1»			(to "sc-:do1")
 ;; «.makeconcat»		(to "makeconcat")
 ;; «.colors»			(to "colors")
@@ -30,7 +67,6 @@
 ;; «.typedescr-buttons»		(to "typedescr-buttons")
 ;; «.:sexptree»			(to ":sexptree")
 ;; «.find-show-conses»		(to "find-show-conses")
-;; «.typedescr»			(to "typedescr")
 ;; «.find-classtree»		(to "find-classtree")
 
 
@@ -38,6 +74,158 @@
 ;;      (find-eev-levels-intro)
 (require 'eev-load)
 (require 'cl-extra)
+
+
+
+
+
+;;;  ___       _             
+;;; |_ _|_ __ | |_ _ __ ___  
+;;;  | || '_ \| __| '__/ _ \ 
+;;;  | || | | | |_| | | (_) |
+;;; |___|_| |_|\__|_|  \___/ 
+;;;                          
+;; «intro»  (to ".intro")
+;; Skel: (find-intro-links "show-conses")
+;; Test: (find-show-conses-intro)
+
+;;;###autoload
+(defun find-show-conses-intro (&rest pos-spec-list) (interactive)
+  (let ((ee-buffer-name "*(find-show-conses-intro)*"))
+    (apply 'find-eintro "\
+\(Re)generate: (find-show-conses-intro)
+Source code:  (find-efunction 'find-show-conses-intro)
+More intros:  (find-eev-quick-intro)
+              (find-eev-intro)
+This buffer is _temporary_ and _editable_.
+It is meant as both a tutorial and a sandbox.
+
+
+Prerequisites:
+  (find-eev-quick-intro \"2. Evaluating Lisp\")
+  (find-eev-quick-intro \"3. Elisp hyperlinks\")
+
+
+
+
+1. Introduction
+===============
+This is a \"cons diagram\",
+
+  (1 (2 \"3\") . 4)
+
+  .__._______4
+  |  |
+  1  .__.    
+     |  |
+     2  \"3\"
+
+that shows a sexp, (1 (2 \"3\") . 4), and how that sexp is represented
+using conses. It uses a format that is much more compact than the
+formats used by pair-tree.el - that is an Emacs package that is MELPA -
+and by \"Sdraw\" from Racket. Compare:
+
+  https://github.com/zainab-ali/pair-tree.el
+  https://docs.racket-lang.org/sdraw/index.html
+
+If you are reading this in Emacs then you have already loaded
+\"show-conses.el\", that is able to display such diagrams. Try:
+
+  (find-show-conses-2a '(1 (2 \"3\") . 4)))
+  (find-2a nil '(find-show-conses-lisp '(1 (2 \"3\") . 4)))
+
+You will get a two-window setting like this,
+
+   _________________________
+  |         |               |
+  |         |               |
+  |  intro  | *show-conses* |
+  |         |               |
+  |_________|_______________|
+
+and in the \"*show-conses*\" buffer some parts of the cons tree are
+\"highlighters\". For example, if you go to the \".\" that corresponds
+to the sub-sexp (2 \"3\") and type `C-c C-c' there it will highlight
+the `(2 \"3\")' in the upper part. Try that now.
+
+The highlighters are implemented using text properties, and the regions
+that they highlight are implemented using a hash table that associates
+names to markers. Try:
+
+
+[TODO: rewrite everything below this point!!!]
+
+
+
+  (find-epp (show-conses-propertize-h '(h \".\" \"cadr\")))
+
+  (show-conses-delete-markers)
+  (find-show-conses-lisp-3a '(1 (2 \"3\") . 4) :end)
+  (show-conses-set-overlay-1 \"car\")
+  (show-conses-set-overlay-1 \"cr\")
+  (show-conses-delete-overlay)
+  (find-2a nil '(find-ehashtable show-conses-markers))
+
+
+
+
+2. Intended audience
+====================
+You can use sexps like
+
+  (find-show-conses-lisp-2a '(1 (2 \"3\") . 4) :end)
+
+to explain sexps and conses to your friends, but I consider that this
+package is:
+
+  \"...more like a toy that is _slightly interesting_ if you play with
+  it for a few seconds, and _much more interesting_ if you open it and
+  take its pieces apart to see how everything works.\"
+
+For more on that, see:
+
+  http://anggtwu.net/2024-eev-for-5-year-olds.html#taking-apart
+
+
+
+
+3. Namespaces
+=============
+The file \"show-conses.el\" is well-behaved: it only defines symbols
+that start with \"show-conses-\" or \"find-show-conses\", plus a few
+extensions to `M-e', that start with \"ee-\" and that, ahem, \"invade
+the eev namespace\". Check:
+
+  (find-eloadhistory-for 'show-conses-shorten)
+  (find-eloadhistory-for 'ee-eval-last-sexp)
+
+Remember that _most_ short and cryptic names, like `a' and `foo' - but
+not `t', `car', and `pi' - are reserved for users. The function
+`show-conses-export' (sort of) exports the symbols of show-conses.el
+halfway towards this \"user namespace\", by creating shorter aliases in
+which each \"show-conses\" is replaced by just \"sc\". You can inspect
+what `show-conses-export' does by running this:
+
+  (find-estring-elisp (show-conses-export0))
+
+Run this to define these shorter symbols:
+
+  ;; See: (find-efunction 'show-conses-export)
+  (show-conses-export)
+
+I will use the shorter symbols in most of the examples of this intro.
+
+
+
+4. The DSL
+==========
+
+" pos-spec-list)))
+
+;; (defun e () (interactive) (find-angg "elisp/show-conses.el"))
+;; (find-show-conses-intro)
+
+
 
 
 
@@ -949,7 +1137,6 @@ This function doesn't run the `sc-:setmarker's in the `sc-:m1's."
 ;; (find-classtree 'function)
 ;; (find-classtree 't)
 ;; (find-insertrects-2a (sc-:td "abc" (sc-:rtree "d" "e" "f") "ghi"))
-
 ;;
 (defun sc-:td (tag)
   `(:rect ((:td1 ,tag))))
@@ -971,14 +1158,7 @@ This function doesn't run the `sc-:setmarker's in the `sc-:m1's."
 
 
 
-
-
-
-;; (find-showconses "show-conses.el" "keymap")
-
-
-
-
+(provide 'show-conses)
 
 ;; Local Variables:
 ;; coding:  utf-8-unix
